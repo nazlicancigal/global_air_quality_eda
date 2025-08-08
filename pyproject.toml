@@ -19,3 +19,18 @@ target-version = "py312"
 select = ["E", "F", "I", "UP", "B"]
 ignore = []
 exclude = ["data", "reports", "venv", ".venv", "ENV"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "global-air-quality-eda"
+version = "0.1.0"
+requires-python = ">=3.10"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
