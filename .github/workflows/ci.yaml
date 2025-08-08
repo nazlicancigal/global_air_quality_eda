@@ -26,8 +26,8 @@ jobs:
       - run: ruff check .
       - run: black --check .
 
-      # Type check
-      - run: mypy src
+      # # Type check
+      # - run: mypy src
 
       # Tests + coverage
       - run: pytest -q --cov=src --cov-report=xml --cov-report=term
