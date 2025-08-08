@@ -1,4 +1,5 @@
 # **Global Air Quality: Trends & Health Impacts**  
+
 *Advanced EDA, Statistical Modeling & Interactive Dashboard*
 
 A high-standard, end-to-end exploratory data analysis investigating how ambient air pollution (PM2.5) relates to health outcomes (life expectancy), socio-economic indicators, and emissions across countries.
@@ -6,12 +7,14 @@ A high-standard, end-to-end exploratory data analysis investigating how ambient 
 ---
 
 ## **📌 Live Resources**
+
 - **Interactive App:** [Streamlit Dashboard](https://nazlicancigal-global-air-quality-eda-appstreamlit-app-vahyfg.streamlit.app/)  
 - **Analysis Notebook:** [`notebooks/01_eda.ipynb`](notebooks/01_eda.ipynb)
 
 ---
 
 ## **🔍 Why This Project?**
+
 - Real-world **data sourcing** from APIs & official CSVs.
 - Complex **data cleaning & merging** (multi-source harmonization).
 - **Statistical reasoning** beyond plotting — robust regression with controls.
@@ -49,21 +52,26 @@ A high-standard, end-to-end exploratory data analysis investigating how ambient 
 ---
 
 ## **📈 Key Findings**
+>
 > Replace `X`/`Y` with your actual results before committing.
 
-- A +1 µg/m³ increase in PM2.5 is associated with ≈ **_X.X years lower_** life expectancy (p < 0.01), controlling for GDP & urbanization.
-- Log-GDP model outperforms raw GDP (ΔAIC = _X_; adj. R² = _Y_), showing better fit and interpretability.
+- A +1 µg/m³ increase in PM2.5 is associated with ≈ ***X.X years lower*** life expectancy (p < 0.01), controlling for GDP & urbanization.
+- Log-GDP model outperforms raw GDP (ΔAIC = *X*; adj. R² = *Y*), showing better fit and interpretability.
 - Regions **A/B** improved most since 2010; **Region C** shows slowest progress.
 - GDP per capita (log scale) is strongly negatively associated with PM2.5, consistent with environmental Kuznets curve patterns.
 
 ---
 
 ## **🖥 Interactive Dashboard**
+
 Run locally:
+
 ```bash
 python app/dashboard.py
 ```
+
 Or explore the [Streamlit live app](https://nazlicancigal-global-air-quality-eda-appstreamlit-app-vahyfg.streamlit.app/) with:
+
 - Filters for **Region** and **Income Group**
 - Year slider for historical exploration
 - GDP vs Life Expectancy scatter (size: urbanization, color: region, hover: PM2.5)
@@ -72,6 +80,7 @@ Or explore the [Streamlit live app](https://nazlicancigal-global-air-quality-eda
 ---
 
 ## **⚙️ Getting Started**
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
@@ -85,6 +94,7 @@ pre-commit install
 ---
 
 ## **📂 Data Sources**
+
 - WHO Global Ambient Air Pollution (PM2.5)
 - World Bank API:
   - Life expectancy (`SP.DYN.LE00.IN`)
@@ -95,6 +105,7 @@ pre-commit install
 ---
 
 ## **🛠 Reproducible Commands**
+
 ```bash
 # Fetch World Bank data
 python src/fetch_worldbank.py --indicators SP.DYN.LE00.IN NY.GDP.PCAP.CD SP.URB.TOTL.IN.ZS EN.ATM.CO2E.PC --start 2000 --end 2023
@@ -109,7 +120,13 @@ jupyter lab
 ---
 
 ## **📦 Deliverables**
+
 - **Notebook:** Narrative EDA & regression analysis.
 - **Figures:** Publication-quality PNGs in `reports/figures/`.
 - **Dashboard:** Local Dash app & live Streamlit app.
 - **Reports:** Regression tables, model comparison CSVs.
+
+![CI](https://github.com/<you>/global-air-quality-eda/actions/workflows/ci.yaml/badge.svg)
+[![codecov](https://codecov.io/gh/<you>/global-air-quality-eda/branch/main/graph/badge.svg)](https://codecov.io/gh/<you>/global-air-quality-eda)
+![Python](https://img.shields.io/badge/Python-3.12-blue.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
