@@ -1,77 +1,115 @@
-# Global Air Quality: Trends & Health Impacts (Advanced EDA & Storytelling)
+# **Global Air Quality: Trends & Health Impacts**  
+*Advanced EDA, Statistical Modeling & Interactive Dashboard*
 
-A high-standard, end-to-end exploratory data analysis investigating how ambient air pollution (e.g., PM2.5) relates to health outcomes (e.g., life expectancy), socio-economics, and emissions across countries.
+A high-standard, end-to-end exploratory data analysis investigating how ambient air pollution (PM2.5) relates to health outcomes (life expectancy), socio-economic indicators, and emissions across countries.
 
-## Why this project?
+---
 
-- Showcases data sourcing, cleaning, merging across APIs/CSVs
-- Demonstrates statistical reasoning and robust EDA
-- Produces interactive storytelling (Dash)
-- Follows CRISP-DM and production-grade repo hygiene
+## **📌 Live Resources**
+- **Interactive App:** [Streamlit Dashboard](https://nazlicancigal-global-air-quality-eda-appstreamlit-app-vahyfg.streamlit.app/)  
+- **Analysis Notebook:** [`notebooks/01_eda.ipynb`](notebooks/01_eda.ipynb)
 
-## Project Plan (CRISP-DM)
+---
 
-1. **Business Understanding** — What country-level patterns link air quality and health?
-2. **Data Understanding** — WHO air quality, World Bank indicators (life expectancy, GDP, urbanization), CO2.
-3. **Data Preparation** — Country-code harmonization, outliers, missingness, normalization.
-4. **Modeling (lite)** — Inference (OLS/robust), partial correlations; *no heavy ML* needed.
-5. **Evaluation** — Sanity checks, sensitivity analyses.
-6. **Deployment** — Dash storytelling app + static report.
+## **🔍 Why This Project?**
+- Real-world **data sourcing** from APIs & official CSVs.
+- Complex **data cleaning & merging** (multi-source harmonization).
+- **Statistical reasoning** beyond plotting — robust regression with controls.
+- **Interactive storytelling** via a public dashboard.
+- Follows **CRISP-DM** and **production-grade repo hygiene**.
 
-## Getting Started
+---
 
+## **🗺 Project Plan (CRISP-DM)**
+
+1. **Business Understanding** — Identify global and regional patterns linking air quality to life expectancy.
+2. **Data Understanding** — WHO PM2.5, World Bank indicators (life expectancy, GDP, urbanization), CO₂.
+3. **Data Preparation** — Country-code harmonization, missingness handling, normalization.
+4. **Modeling** — OLS regression with robust SEs, standardized coefficients, VIF analysis.
+5. **Evaluation** — Sanity checks, sensitivity analyses, model comparison (raw vs log GDP).
+6. **Deployment** — Streamlit dashboard for exploration.
+
+---
+
+## **📊 Methodology Summary**
+
+- **Data**: WHO PM2.5 (country-year, `Dim1 == "Total"`) + World Bank socio-economic indicators, 2000–2023.
+- **Cleaning**: ISO3 harmonization, numeric coercion, duplicate handling.
+- **Enrichment**: Added World Bank metadata for **region** and **income group**.
+- **EDA**:
+  - PM2.5 trends by **region** and **income group**.
+  - Cross-sectional relationships (PM2.5 ↔ life expectancy, GDP).
+  - Distribution and missingness checks.
+- **Model**:
+  - OLS regression:  
+    `life_expectancy ~ pm25 + log_gdp_per_capita + urban_pop_%`
+  - Robust SEs (HC3), standardized coefficients, 95% CIs, VIF diagnostics.
+- **Reproducibility**: Automated data fetching & merging scripts (`src/`), documented pipeline.
+
+---
+
+## **📈 Key Findings**
+> Replace `X`/`Y` with your actual results before committing.
+
+- A +1 µg/m³ increase in PM2.5 is associated with ≈ **_X.X years lower_** life expectancy (p < 0.01), controlling for GDP & urbanization.
+- Log-GDP model outperforms raw GDP (ΔAIC = _X_; adj. R² = _Y_), showing better fit and interpretability.
+- Regions **A/B** improved most since 2010; **Region C** shows slowest progress.
+- GDP per capita (log scale) is strongly negatively associated with PM2.5, consistent with environmental Kuznets curve patterns.
+
+---
+
+## **🖥 Interactive Dashboard**
+Run locally:
+```bash
+python app/dashboard.py
+```
+Or explore the [Streamlit live app](https://nazlicancigal-global-air-quality-eda-appstreamlit-app-vahyfg.streamlit.app/) with:
+- Filters for **Region** and **Income Group**
+- Year slider for historical exploration
+- GDP vs Life Expectancy scatter (size: urbanization, color: region, hover: PM2.5)
+- PM2.5 trends over time by region
+
+---
+
+## **⚙️ Getting Started**
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install --upgrade pip
 pip install -r requirements.txt
 
-# Pre-commit hooks
+# Optional: install pre-commit hooks
 pre-commit install
 ```
 
-## Data Sources (to download/fetch)
+---
 
-- WHO air quality (PM2.5) — CSV (manual download)
-- World Bank Indicators via API:
-  - Life expectancy (SP.DYN.LE00.IN)
-  - GDP per capita (NY.GDP.PCAP.CD)
-  - Urban population % (SP.URB.TOTL.IN.ZS)
-  - CO2 per capita (EN.ATM.CO2E.PC)
+## **📂 Data Sources**
+- WHO Global Ambient Air Pollution (PM2.5)
+- World Bank API:
+  - Life expectancy (`SP.DYN.LE00.IN`)
+  - GDP per capita (`NY.GDP.PCAP.CD`)
+  - Urban population % (`SP.URB.TOTL.IN.ZS`)
+  - CO₂ per capita (`EN.ATM.CO2E.PC`)
 
-## Reproducible Commands
+---
 
+## **🛠 Reproducible Commands**
 ```bash
+# Fetch World Bank data
 python src/fetch_worldbank.py --indicators SP.DYN.LE00.IN NY.GDP.PCAP.CD SP.URB.TOTL.IN.ZS EN.ATM.CO2E.PC --start 2000 --end 2023
+
+# Merge with WHO PM2.5 (after placing file in data/external/)
 python src/process_merge.py --who_csv data/external/who_pm25.csv
+
+# Start JupyterLab for analysis
 jupyter lab
 ```
 
-## Deliverables
+---
 
-- notebooks/01_eda.ipynb — Narrative EDA
-- reports/air_quality_story.md — Long-form writeup
-- app/ (optional) — Dash app
-- Figures in reports/figures/
-
-## Methodology (Summary)
-
-- **Data**: WHO PM2.5 (country-year, Total) and World Bank indicators (Life Expectancy, GDP/capita, Urban %), 2000–2023.
-- **Cleaning**: Country harmonization via ISO3; filtered WHO `Dim1 == "Total"`.
-- **Enrichment**: Merged World Bank metadata for region and income group to enable segment analysis.
-- **EDA**: Trends by region, cross-sectional relationships (PM2.5 ↔ Life Expectancy, GDP), and distribution checks.
-- **Model**: OLS with robust standard errors (HC3):  
-  `life_expectancy ~ pm25 + gdp_per_capita + urban_pop_%`  
-  Reported coefficients with robust SEs, 95% CIs, standardized coefficients, and VIF diagnostics.
-- **Key Takeaways**:
-  - Higher PM2.5 associates with lower life expectancy, even controlling for GDP and urbanization.
-  - Regions X and Y show the slowest improvement in PM2.5 since 2010; Region Z improved the most.
-  - GDP (log-scale) has a strong negative association with PM2.5, consistent with environmental Kuznets patterns.
-- **Reproducibility**: `src/fetch_worldbank.py` (API), `src/process_merge.py` (merge), notebooks for analysis, and a Dash app for exploration.
-
-## Interactive Dashboard
-
-Run locally:
-
-```bash
-python app/dashboard.py
+## **📦 Deliverables**
+- **Notebook:** Narrative EDA & regression analysis.
+- **Figures:** Publication-quality PNGs in `reports/figures/`.
+- **Dashboard:** Local Dash app & live Streamlit app.
+- **Reports:** Regression tables, model comparison CSVs.
