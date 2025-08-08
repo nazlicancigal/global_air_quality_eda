@@ -9,6 +9,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: global_air_quality_eda  
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
