@@ -1,0 +1,21 @@
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+exclude = '''
+(
+    /data
+  | /reports
+  | /venv
+  | /\.venv
+  | /ENV
+)
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = []
+exclude = ["data", "reports", "venv", ".venv", "ENV"]
