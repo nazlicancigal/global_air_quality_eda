@@ -53,7 +53,7 @@ A high-standard, end-to-end exploratory data analysis investigating how ambient 
 
 ## **📈 Key Findings**
 >
-> Replace `X`/`Y` with your actual results before committing.
+> Replace `X`/`Y` with your actual results - this will require detailed analysis.
 
 - A +1 µg/m³ increase in PM2.5 is associated with ≈ ***X.X years lower*** life expectancy (p < 0.01), controlling for GDP & urbanization.
 - Log-GDP model outperforms raw GDP (ΔAIC = *X*; adj. R² = *Y*), showing better fit and interpretability.
