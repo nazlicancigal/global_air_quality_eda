@@ -53,3 +53,25 @@ jupyter lab
 - reports/air_quality_story.md — Long-form writeup
 - app/ (optional) — Dash app
 - Figures in reports/figures/
+
+## Methodology (Summary)
+
+- **Data**: WHO PM2.5 (country-year, Total) and World Bank indicators (Life Expectancy, GDP/capita, Urban %), 2000–2023.
+- **Cleaning**: Country harmonization via ISO3; filtered WHO `Dim1 == "Total"`.
+- **Enrichment**: Merged World Bank metadata for region and income group to enable segment analysis.
+- **EDA**: Trends by region, cross-sectional relationships (PM2.5 ↔ Life Expectancy, GDP), and distribution checks.
+- **Model**: OLS with robust standard errors (HC3):  
+  `life_expectancy ~ pm25 + gdp_per_capita + urban_pop_%`  
+  Reported coefficients with robust SEs, 95% CIs, standardized coefficients, and VIF diagnostics.
+- **Key Takeaways**:
+  - Higher PM2.5 associates with lower life expectancy, even controlling for GDP and urbanization.
+  - Regions X and Y show the slowest improvement in PM2.5 since 2010; Region Z improved the most.
+  - GDP (log-scale) has a strong negative association with PM2.5, consistent with environmental Kuznets patterns.
+- **Reproducibility**: `src/fetch_worldbank.py` (API), `src/process_merge.py` (merge), notebooks for analysis, and a Dash app for exploration.
+
+## Interactive Dashboard
+
+Run locally:
+
+```bash
+python app/dashboard.py
