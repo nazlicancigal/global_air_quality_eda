@@ -14,8 +14,23 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
       - run: pip install --upgrade pip
       - run: pip install -r requirements.txt
       - run: pip install -e .
-      - run: python -m ruff --version && python -m black --version
-      - run: python -m pytest -q
+
+      # Lint & format (fail if issues)
+      - run: ruff check .
+      - run: black --check .
+
+      # Type check
+      - run: mypy src
+
+      # Tests + coverage
+      - run: pytest -q --cov=src --cov-report=xml --cov-report=term
+
+      # Upload coverage to Codecov (no token needed for public repos)
+      - uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: true
