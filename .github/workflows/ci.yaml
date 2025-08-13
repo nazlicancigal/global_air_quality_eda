@@ -20,17 +20,16 @@ jobs:
       - run: pip install -e .
 
 
-
       # Lint & format (fail if issues)
       - run: ruff check .
       - run: black --check .
 
+      # Run tests
+      - run: python -m pytest --cov=src --cov-report=xml --cov-report=term
 
-      # Tests + coverage
-      - run: pytest -q --cov=src --cov-report=xml --cov-report=term
-
-      # Upload coverage to Codecov (no token needed for public repos)
-      - uses: codecov/codecov-action@v4
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
         with:
           files: ./coverage.xml
+          token: df0a1425-cd62-40b9-bd2b-38b27bd6e8f4
           fail_ci_if_error: true
